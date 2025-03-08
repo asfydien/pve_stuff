@@ -1,0 +1,11 @@
+0:00 Login ke Proxmox
+0:35 Membuat CT (Debian 12)
+1:50 Menjalankan dan Mengakses CT
+2:10 Mengijinkan akses root via SSH
+3:20 Mengganti Repository Debian 12
+6:40 Instalasi Webmin dan LAMP
+10:15 Instalasi Netdata
+11:45 Instalasi Wordpress
+20:00 Instalasi OpenVPN
+25:00 Instalasi Asterisk
+26:25 Konfigurasi Asterisk
