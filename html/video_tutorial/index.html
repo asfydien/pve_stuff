@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Video dengan Chapter</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; background: #f4f4f4; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 20px; }
+        
+        /* Kontainer Video */
+        .video-container { width: 720px; max-width: 100vw; aspect-ratio: 16 / 9; transition: width 0.3s, height 0.3s; }
+        video { width: 100%; height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+        /* Tombol Ukuran */
+        .controls { margin-top: 10px; }
+        .size-btn { padding: 8px 12px; margin: 5px; border: none; cursor: pointer; border-radius: 5px; background: #ddd; }
+        .size-btn.active { background: #007BFF; color: white; font-weight: bold; }
+
+        /* Daftar Chapter */
+        .chapters { flex: 1; min-width: 280px; max-width: 320px; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .chapters h3 { text-align: center; }
+        .chapter-item { padding: 12px; border-bottom: 1px solid #ddd; cursor: pointer; transition: background 0.3s; display: flex; align-items: center; }
+        .chapter-item:last-child { border-bottom: none; }
+        .chapter-item:hover { background: #e0e0e0; }
+        .chapter-item.active { background: #cce5ff; font-weight: bold; }
+        .chapter-time { font-weight: bold; margin-right: 10px; color: #007BFF; }
+
+        /* Responsif: Chapter Pindah ke Bawah di Layar Kecil */
+        @media (max-width: 900px) {
+            .container { flex-direction: column; align-items: center; }
+            .chapters { width: 100%; max-width: 720px; }
+        }
+
+        /* Mode Fullscreen */
+        .fullscreen {
+            width: auto !important;
+            max-width: 100vw !important;
+            height: auto !important;
+            max-height: 80vh !important;
+            aspect-ratio: 16 / 9;
+        }
+       
+    </style>
+</head>
+<body>
+
+    <h2>Job-2 Linux SysAdmin</h2>
+
+    <div class="container">
+        <!-- Kontainer Video -->
+        <div class="video-container" id="videoContainer">
+            <video id="tutorialVideo" controls>
+                <source src="video.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
+            <!-- Tombol Pengaturan Ukuran Video -->
+            <div class="controls">
+                <button class="size-btn" id="sizeSmall" onclick="setVideoSize(480)">Kecil</button>
+                <button class="size-btn active" id="sizeMedium" onclick="setVideoSize(720)">Sedang</button>
+                <button class="size-btn" id="sizeLarge" onclick="setVideoSize('fullscreen')">Besar</button>
+            </div>
+        </div>
+
+        <!-- Daftar Chapter -->
+        <div class="chapters">
+            <h3>Daftar Chapter</h3>
+            <div id="chapterList">Memuat daftar chapter...</div>
+        </div>
+    </div>
+
+    <script>
+        let chapters = [];
+
+        function timeToSeconds(time) {
+            let parts = time.split(":");
+            return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+        }
+
+        function loadChapters() {
+            fetch('timestamps.txt')
+                .then(response => response.text())
+                .then(text => {
+                    let lines = text.trim().split("\n");
+                    let chapterList = document.getElementById("chapterList");
+                    chapterList.innerHTML = ""; 
+
+                    lines.forEach(line => {
+                        let parts = line.split(" ", 2);
+                        let time = parts[0]; 
+                        let title = line.substring(time.length + 1);
+                        let timeInSeconds = timeToSeconds(time);
+
+                        let chapterItem = document.createElement("div");
+                        chapterItem.className = "chapter-item";
+                        chapterItem.innerHTML = `<span class="chapter-time">${time}</span> ${title}`;
+                        chapterItem.onclick = () => jumpTo(timeInSeconds);
+
+                        chapters.push({ time: timeInSeconds, element: chapterItem });
+
+                        chapterList.appendChild(chapterItem);
+                    });
+
+                    trackCurrentChapter();
+                })
+                .catch(error => {
+                    document.getElementById("chapterList").innerHTML = "Gagal memuat daftar chapter.";
+                    console.error("Error loading chapters:", error);
+                });
+        }
+
+        function jumpTo(time) {
+            let video = document.getElementById("tutorialVideo");
+            video.currentTime = time;
+            video.play();
+        }
+
+        function trackCurrentChapter() {
+            let video = document.getElementById("tutorialVideo");
+            video.addEventListener("timeupdate", () => {
+                let currentTime = video.currentTime;
+                let activeChapter = null;
+                for (let i = 0; i < chapters.length; i++) {
+                    if (currentTime >= chapters[i].time) {
+                        activeChapter = chapters[i];
+                    } else {
+                        break;
+                    }
+                }
+
+                chapters.forEach(ch => ch.element.classList.remove("active"));
+
+                if (activeChapter) {
+                    activeChapter.element.classList.add("active");
+                }
+            });
+        }
+
+        function setVideoSize(size) {
+            let videoContainer = document.getElementById("videoContainer");
+
+            // Reset ukuran
+            videoContainer.classList.remove("fullscreen");
+            videoContainer.style.width = "";
+            videoContainer.style.aspectRatio = "16 / 9";
+
+            if (size === "fullscreen") {
+                videoContainer.classList.add("fullscreen");
+            } else {
+                videoContainer.style.width = size + "px";
+            }
+
+            // Highlight tombol aktif
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove("active"));
+            if (size === 480) {
+                document.getElementById("sizeSmall").classList.add("active");
+            } else if (size === 720) {
+                document.getElementById("sizeMedium").classList.add("active");
+            } else {
+                document.getElementById("sizeLarge").classList.add("active");
+            }
+        }
+
+        // Atur default ke "Sedang" saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            setVideoSize(720);
+            loadChapters();
+        });
+    </script>
+
+</body>
+</html>
