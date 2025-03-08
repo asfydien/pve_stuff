@@ -1,4 +1,4 @@
-Penggunaan Proxmox VE di Lab. Jaringan sangat membatu siswa memahami belajar Sistem Operasi Jaringan, Linux, VPS (KVM, OpenVz), dll. 
+Penggunaan Proxmox VE di Lab. Jaringan sangat membatu siswa memahami Sistem Operasi Jaringan, Linux, VPS (KVM, OpenVz), dll. 
 _Yuu, mari bermain dengan **bash**..._
 
 # Latihan Linux SysAdmin dengan Proxmox VE
