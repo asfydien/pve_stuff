@@ -72,3 +72,5 @@ crontab -e
 ```
 masukan perintah berikut, lalu simpan
 ```
+*/5 * * * * /root/aktifvasi_tun.sh
+```
