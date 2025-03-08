@@ -1,5 +1,6 @@
 ## Latihan Linux SysAdmin dengan Proxmox VE
-### A. Alat dan Bahan
+### Alat dan Bahan
+Untuk melayani 36-75 siswa dengan spesifikasi yang terbatas, kita perlu sedikit kesabaran. Namun, dengan beberapa penyesuaian, kita masih bisa memaksimalkan performa. _Push To The Limit!_
 | Perangkat | Spesifikasi |Ket|
 |-|-|-|
 |PC/Server  ||
@@ -21,3 +22,6 @@
 |WinSCP|6.3.x|https://www.winscp.net/|
 |Wordpress|6.7.x|https://id.wordpress.org/download/|
 |OpenVPN Connect|3.6.0.4074|https://openvpn.net/client/client-connect-vpn-for-windows/|
+
+#### Membuat akun untuk siswa
+Ga lucu siswa masuk sebagai root, supaya sedikit lebih aman kita buat akun khusus untuk siswa
