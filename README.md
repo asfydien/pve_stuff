@@ -1,7 +1,7 @@
 Penggunaan Proxmox VE di Lab. Jaringan sangat membatu siswa memahami Sistem Operasi Jaringan, Linux, VPS (KVM, OpenVz), dll. 
 _Yuu, mari bermain dengan **bash**..._
 
-# Latihan Linux SysAdmin dengan Proxmox VE
+# Belajar Linux SysAdmin dengan Proxmox VE
 ## Alat dan Bahan
 Untuk melayani 36-75 siswa dengan spesifikasi yang terbatas, kita mesti sedikit kesabaran. Namun, dengan beberapa penyesuaian, kita masih bisa memaksimalkan performa. _Push To The Limit!_
 | Perangkat | Spesifikasi |Ket|
@@ -35,17 +35,22 @@ chmod +x buat_user_siswa.sh
 ./buat_user_siswa.sh
 ```  
   
-## Membuat template yang sudah terkonfigurasi aptproxy
-Untuk menghemat bandwidth internet ketika siswa melakukan proses upgrade dan instalasi paket menggunakan perintaj apt, kita bisa membuat sebuah CT husus yang dijadikan server apt-chacher-ng, dalam kasus ini kita buat sebuah CT Debian 12 yang sudah terinstall apt-chacher-ng dan diberi IP 10.10.2.99
+## Membuat template yang sudah terkonfigurasi APT Proxy
+Untuk menghemat bandwidth internet ketika siswa melakukan proses upgrade dan instalasi paket menggunakan perintah `apt-get`, kita bisa membuat sebuah CT husus yang dijadikan server, dalam prakteknya kita buat sebuah CT Debian 12 yang sudah terinstall `apt-chacher-ng` dan diberi IP `10.10.2.99`
 
-Untuk server aptproxy
-```shell
-apt update
-apt upgrade
-apt install apt-chacher-ng
-```
+#### 1. Membuat APT Proxy Server
+Buat CT baru, bisa menggunakan Debian atau Ubuntu, beri IP 10.10.2.99 lalu install `apt-chacher-ng`
+  ```shell
+  apt update
+  apt upgrade
+  apt install apt-chacher-ng
+  ```
+  Pastikan server yang dijadikan aptproxy harus otomatis berjalan `Options -> Start at boot = yes`, karena CT yang siswa gunakan akan secara otomatis mengakses server tersebut!
 
-Kita buat Template baru, pastikan template debian sudah di download, selanjutnya edit script sesuai kondisi
+#### 2. Membuat Template yang sudah terkonfigurasi APT Proxy 
+Pada sisi siswa, supaya memudahkan, kita modifikasi Template debian bawaan `debian-12-standard_12.7-1_amd64.tar.zst` menjadi template baru `debian-12-custom_for_kahiang.tar.zst` yang sudah terkonfigurasi aptproxy, dimana siswa diwajibkan menggunakan `debian-12-custom_for_kahiang.tar.zst` ketika membuat CT baru
+
+Berikut perintah untuk membuat template tersebut, pelajari [`inject_aptproxy.sh`](https://github.com/asfydien/pve_stuff/blob/main/inject_aptproxy.sh) untuk menyesuaikan sesuai kebutuhan
 ```shell
 wget https://raw.githubusercontent.com/asfydien/pve_stuff/refs/heads/main/inject_aptproxy.sh
 chmod +x inject_aptproxy.sh
@@ -73,4 +78,11 @@ crontab -e
 masukan perintah berikut, lalu simpan
 ```
 */5 * * * * /root/aktivasi_tun_vpn.sh
+```
+## Menghapus CT sekaligus (Bulk)
+Ketika ingin menghapus semua CT yang dibuat siswa, kita harus me _remove_ nya satu persatu, supaya lebih mudah kita gunakan script, dengan syarat CT/VM yang di buat siswa memiliki ID yang berurutan!
+```shell
+wget https://raw.githubusercontent.com/asfydien/pve_stuff/refs/heads/main/hapus_ct.sh
+chmod +x hapus_ct.sh
+./hapus_ct.sh
 ```
