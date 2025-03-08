@@ -72,5 +72,5 @@ crontab -e
 ```
 masukan perintah berikut, lalu simpan
 ```
-*/5 * * * * /root/aktifvasi_tun.sh
+*/5 * * * * /root/aktivasi_tun_vpn.sh
 ```
