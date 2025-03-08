@@ -53,7 +53,7 @@ chmod +x inject_aptproxy.sh
 ```
 
 ## Mengaktifkan TUN untuk VPN
-Supaya CT bisa mengakses adapter TUN, kita bisa memasukan dua baris perintah berikut ke dalam baris terakhir file konfogurasi CT pada lokasi /etc/pve/lxc/ 
+Supaya CT bisa mengakses adapter TUN, kita bisa memasukan dua baris perintah berikut ke dalam baris terakhir file konfogurasi CT pada lokasi `/etc/pve/lxc/` 
 ```
 lxc.cgroup.devices.allow: c 10:200 rwm
 lxc.mount.entry: /dev/net dev/net none bind,create=dir
