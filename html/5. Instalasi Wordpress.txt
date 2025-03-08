@@ -1,0 +1,58 @@
+INSTALL WORDPRESS DENGAN WEBMIN
+-------------------------------
+
+1. Login ke Webmin
+
+2. Pastikan LAMP sudah terinstall, dan biasanya perlu menginstal php-mysql
+
+	# apt install php-mysql
+    
+
+2. Download file installer Wordpress dari 10.10.2.99
+
+3. Gunakan Webmin -> Tools -> File Manager
+
+4. Upload installer Wordpress ke /var/www/html, sembari centang opsi "Extract Compressed"
+
+5. Cut directory "wordpress" ke document root /var/www/html/
+
+6. Buat Database
+	- Masuk ke Webmin, Servers -> MariaDB Database Server
+	- Create a new database dengan nama "wpdb"
+	- Klik Create
+	
+	- Beri password untuk akun root, masuk Servers -> MariaDB Database Server -> Change Administration Password
+    - Change Now
+
+	
+8. Kita mulai Instalasi Wordpress
+	- Buka alamat wordpress kalian di 10.10.2.xx/wordpress
+	- Let's go!
+	- Memasukan konfigurasi database
+		Database name: wpdb
+		Username: root
+		Password: [password]
+		Database Host: localhost
+		Table Prefix: wp_
+	- Klik Submit
+	
+	- Copy semua konfigurasi
+	- Buka Tools -> File Manager, masuk ke /var/www/html/wordpress/
+	- Buat file wp-config.php
+	- Edit file wp-config.php lalu pastekan semua konfigurasi kedalamnya, simpan...
+	
+	- Kembali lagi ke proses installer Wordpress, klik "Install Wordpress"
+	- Selanjunya, semoga beruntung...
+    
+
+9. Webmin, Apache Webserver -> Virtual Server -> Document Root -> "/var/www/html/wordpress" -> Save -> Apply changes!
+
+10. jika semuanya berjalan lancar, Wordpress seharusnya dapat di akses langsung dari alamat 10.10.2.xxx
+		
+	
+	
+	
+	
+	
+		
+

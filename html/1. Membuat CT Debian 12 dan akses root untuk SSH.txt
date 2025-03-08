@@ -1,0 +1,59 @@
+MEMBUAT CT DEBIAN 12 PADA PROXMOX VE
+------------------------------------
+
+1. Akses Proxmox via Web Browser, pada alamat
+
+	10.10.2.200:8006
+	
+	Username	: siswa
+	Password	: #Pastibisa1
+	Realm		: Proxmox VE au...
+	
+
+2. Pada sebelah pojok kanan atas, klik Create CT, lalu konfigurasi sesuai petunjuk:
+	
+	Field			Petunjuk
+	-----            	--------
+	CT ID			di isi dengan x0yy <-- x kelas, y no absen
+	Hostname		nama siswa, nama kecil
+	Password		bebas, asal mudah di ingat
+	Confirm Password 	tulis kembali password
+
+	Storange		local
+	Template		debian-12-custom_amd64.tar.zst
+
+	Storange		tjkt
+	Disk size (GiB)		8
+
+	Core			1
+	Memory (MiB)		512
+	Swap (MiB)		512
+
+	IPv4/CIDR		10.10.2.xyy/24 <-- x kelas, y nomor absen
+	Gateway (IPv4)		10.10.2.254
+
+
+3. Pada tree sebelah kanan Datacenter -> pve -> pilih CT yang telah dibuat, 
+   klik kanan Start...
+
+4. Untuk mulai mengakses Debian kita, Klik kanan CT kamu, terus klik Console...
+
+5. Membuka akses SSH supaya bisa login menggunakan root
+
+	- Masuk sebagai root, dan gunakan password yang telah kamu seting pada tahap 2
+	- Dikarenakan paket openssh-server secara default sudah terinstall, maka kita
+	  langsung edit file sshd_config pada directory /etc/ssh/
+	  
+	  # nano /etc/ssh/sshd_config
+	  
+	  hapus tanda # pada baris "#PermitRootLogin ..." ganti jadi "PermitRootLogin yes"
+	  
+	  # systemctl restart sshd
+	  
+
+6. Buka CMD, Terminal, PuTTY, atau WinSCP untuk mengakses server Debian 12 kita....
+
+
+	
+
+

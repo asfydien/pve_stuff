@@ -1,0 +1,68 @@
+INSTALL ASTERISK PADA DEBIAN 12
+-------------------------------
+
+Dikarenakan paket Asterisk tidak tersedia di repo debian 12, kita bisa ambil dari repositori debian versi sebelumnya atau debian unstable (sid), namun supaya lebih amannya kita ambil dari repo Debian 11, berikut tahapannya:
+
+1. Tambah Repository debian 11
+
+	# nano /etc/apt/source.list
+		
+	deb http://kartolo.sby.datautama.net.id/debian/ bullseye main contrib
+
+	# apt update
+
+		
+
+2. Instal Asterisk
+	
+	# apt install asterisk asterisk-dahdi
+		
+		
+
+3. Buat akun SIP
+
+	# nano /etc/asterisk/sip.conf
+	
+	tambahkan minimal 2 buah akun dalam satu divisi (tjkt):
+	
+	[general]
+	context=default
+	
+	[100]
+	context=tjkt
+	type=friend
+	username=100
+	secret=123
+	host=dynamic
+	videosupport=yes
+	
+	[200]
+	context=tjkt
+	type=friend
+	username=200
+	secret=123
+	host=dynamic
+	videosupport=yes
+	
+
+
+3. Atur DialPlan untuk akun 100 dan 200
+
+	Edit file extensions.conf
+	
+	# nano /etc/asterisk/extensions.conf
+	
+	tambahkan aturan alur untuk context tkj:
+	
+	[tjkt]
+	exten =>100,1,Dial(SIP/100)
+	exten =>200,1,Dial(SIP/200)
+	
+
+4. Restart dan cek status Asterisk
+
+	# systemctl restart asterisk
+	# systemctl status asterisk
+	
+
+5. Daftarkan tiap akun SIP ke softphone

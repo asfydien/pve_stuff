@@ -1,0 +1,32 @@
+TAHAPAN MENGGANTI REPOSITORY INDOMESIA
+--------------------------------------
+
+1. Akses server Debian 12 via remote (CMD, Terminal, atau PuTTY)
+
+2. Buka file /etc/apt/sources.list
+
+	# nano /etc/apt/sources.list
+
+
+3. Cari di internet konfigurasi repo debian 12 indonesia, misal:
+
+   - Beri tanda # pada repository bawaan
+   - Masukan repository berikut:
+	
+	deb http://repo.ugm.ac.id/debian/ bookworm main contrib
+	deb http://repo.ugm.ac.id/debian/ bookworm-updates main contrib
+    
+    deb http://repo.ugm.ac.id/debian/ bullseye main contrib
+
+
+4. Simpan dengan kombinasi Ctrl+o lalu enter, untuk keluar gunakan Ctrl+x
+
+5. Upadate repository, lalu lakukan upgrade paket debian
+
+	# apt update
+	# apt Upgrade
+
+
+
+CATATAN:
+Terkadang server repositori overload, jika terjadi, coba ganti dengan server yang lain...

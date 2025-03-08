@@ -1,0 +1,24 @@
+INSTALASI NETDATA UNTUK ALAT MONITORING
+---------------------------------------
+
+1. Instalasi
+
+	# apt install netdata
+
+
+2. Konfigurasi supaya dapat di akses dari jaringan lain
+
+	# nano /etc/netdata/netdata.conf
+	
+
+	cari pada bagian [global] lalu ijinkan supaya dapat di akses dari mana saja
+
+	bind socket to IP = 0.0.0.0
+
+	
+	# systemctl restart netdata
+
+
+
+3. Mengakses via Web Browser pada alamat http://10.10.2.xxx:19999
+

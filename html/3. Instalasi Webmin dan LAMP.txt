@@ -1,0 +1,20 @@
+TAHAPAN PEMASANGAN WEBMIN DAN LAMP
+----------------------------------
+
+1. Akses server Debian 12 via Remote (CMD, PuTTY)
+
+2. Download paket instalasi dari situs lokal
+
+	# wget 10.10.2.99/webmin_2.202_all.deb
+    # dpkg -i webmin_2.202_all.deb
+    # apt install -f
+    
+
+3. Jika selesai, akses via Web Browser menggunakan alamat ip server pada port 10000
+
+	10.10.2.xx:10000
+
+
+4. Untuk instalasi LAMP, masuk ke Tool -> Terminal
+
+	# apt install apache2 mariadb-server php 

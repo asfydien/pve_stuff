@@ -1,0 +1,29 @@
+KONFIGURASI OPENVPN MENGGUNAKAN SCRIPT
+--------------------------------------
+
+Sebelum konfigurasi OpenVPN minta izin ke Admin/Guru untuk membuka akses TUN!
+
+1. Pastikan IP dan Repositori lokal sudah di sesuaikan
+
+2. Download dan install script OpenVPN (https://github.com/angristan/openvpn-install)
+
+	# wget https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+	# chmod +x openvpn-install.sh
+	# ./openvpn-install.sh
+	
+		IP Address: <ipserver kamu>
+		Public IPv4...: <ipserver kamu>	
+		Port: <1194>
+		Protocol: <UDP>
+		DNS: <Google>
+		Compression: n
+		Customize: n
+		Clinet name: sofyan
+		Protect: <passwordless>	 
+	
+
+3. Mengambil akun user hasil konfigurasi gunakan WinSCP pada lokasi /root/
+
+4. Gunakan aplikasi OpenVPN Connect untuk mencoba konektifitas
+
+5. Pengujian gunakan perintah tracert 8.8.8.8, lihat apakah melewati tunel?
