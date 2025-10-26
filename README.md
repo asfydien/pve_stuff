@@ -7,7 +7,7 @@ _Yuu, mari bermain dengan **bash**..._
 > Repository ini dibuat hanya sebagai catatan kecil untuk pengingat hasil pengalaman di lab, bukan tutorial lengkap, silahkan abaikan jika belum dipahami untuk menghindari resiko kesalahan...
 ## 1. Perangkat dan Bahan yang digunakan
 Untuk mendukung 36-75 siswa dengan spesifikasi hardware terbatas, kita perlu sedikit sabar. Tapi, dengan beberapa penyesuaian, performa tetap bisa dimaksimalkan. _Push To The Limit!_
-#### 1.1. Perangkat Keras
+### 1.1. Perangkat Keras
 | Perangkat | Spesifikasi |Ket|
 |-|-|-|
 |PC/Server  ||
