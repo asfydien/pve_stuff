@@ -77,7 +77,7 @@ chmod +x aktivasi_tun_vpn.sh
 ./aktivasi_tun_vpn.sh
 ```
 > [!TIP]
-> Supaya CT baru yang siswa yang buat dapat secara otomatis di aktifkan mode TUN nya, kita masukan _script_ di atas ke dalam _Cron Job_ milik Proxmox
+> Supaya CT baru yang siswa buat dapat secara otomatis di aktifkan mode TUN nya, kita harus masukan _script_ di atas ke dalam _Cron Job_ milik Proxmox supaya script dijalankan setiap 5 menit sekali
 > ```shell
 > crontab -e
 > ```
